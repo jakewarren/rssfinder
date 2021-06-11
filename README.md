@@ -49,6 +49,13 @@ Flags:
 URL: https://github.com/jakewarren/rssfinder
 ```
 
+## Credits/Prior Art
+
+Ideas & inspiration taken from:
+* [antonlindstrom/feedfinder](https://github.com/antonlindstrom/feedfinder)
+* [mediacloud/feed_seeker](https://github.com/mediacloud/feed_seeker/)
+* [twobucks/find-rss](https://github.com/twobucks/find-rss/)
+
 ## Changes
 
 All notable changes to this project will be documented in the [changelog].
