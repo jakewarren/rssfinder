@@ -15,8 +15,8 @@ var suffixes = []string{
 	"/feeds/posts/default",            // Blogger.com RSS URL
 	"/rss.xml",                        // Posterous.com RSS feed
 	"/articles.rss", "/articles.atom", // Patch.com RSS feeds
-	"/commits/master.atom", // github RSS feeds
-	"/.rss",                // reddit
+	"/commits/master.atom", "/commits/main.atom", // github RSS feeds
+	"/.rss", // reddit
 }
 
 func fuzzURL(u string) []Feed {
