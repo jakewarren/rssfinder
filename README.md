@@ -12,7 +12,7 @@
 |-------------|----------|--------------------|------------------------------------------------------------------------------------|
 | inoreader   | API      | true               | Searches the Inoreader.com API for RSS feeds                                       |
 | feedly      | API      | true               | Searches the feedly.com API for RSS feeds                                          |
-| newsblur    | API      | true               | Searches the newsblur.com API for RSS feeds                                        |
+| newsblur    | API      | false              | Searches the newsblur.com API for RSS feeds                                        |
 | scrape      | Scraper  | false              | Spiders the website and visits all links on the same domain looking for RSS feeds. |
 | fuzzer      | Fuzzer   | false              | "Fuzzes" the domain by sending HEAD requests to common RSS feed paths.             |
 
@@ -40,11 +40,14 @@ curl -sf https://gobinaries.com/jakewarren/rssfinder | sh
 Usage: rssfinder [flags] <URL>
 
 Flags:
-  -f, --fuzzer    enables the fuzzer module
-  -h, --help      display help
-  -s, --scraper   enables the scraper module
-  -v, --verbose   enable trace logging
-  -V, --version   display version information
+      --feedly      enables the feedly module (default true)
+  -f, --fuzzer      enables the fuzzer module
+  -h, --help        display help
+      --inoreader   enables the inoreader module (default true)
+      --newsblur    enables the newblur module
+  -s, --scraper     enables the scraper module
+  -v, --verbose     enable trace logging
+  -V, --version     display version information
 
 URL: https://github.com/jakewarren/rssfinder
 ```
