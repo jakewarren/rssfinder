@@ -38,6 +38,9 @@ func main() {
 
 	pflag.BoolVarP(&r.Config.EnableFuzzer, "fuzzer", "f", false, "enables the fuzzer module")
 	pflag.BoolVarP(&r.Config.EnableScraper, "scraper", "s", false, "enables the scraper module")
+	pflag.BoolVar(&r.Config.EnableNewsBlur, "newsblur", false, "enables the newblur module")
+	pflag.BoolVar(&r.Config.EnableInoreader, "inoreader", true, "enables the inoreader module")
+	pflag.BoolVar(&r.Config.EnableFeedly, "feedly", true, "enables the feedly module")
 	verbose := pflag.BoolP("verbose", "v", false, "enable trace logging")
 	pflag.Parse()
 
