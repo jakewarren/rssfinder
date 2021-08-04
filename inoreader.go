@@ -21,7 +21,6 @@ type inoreaderResultElement struct {
 	Type     *string `json:"type,omitempty"`
 	Label    *string `json:"label,omitempty"`
 	ItemType *string `json:"item_type,omitempty"`
-	ID       *int64  `json:"id,omitempty"`
 }
 
 func InoreaderSearch(u string) []Feed {
