@@ -29,7 +29,7 @@ func New() *RSSFinder {
 			EnableInoreader bool
 			EnableNewsBlur  bool
 			EnableSmartMode bool
-		}{EnableFuzzer: true, EnableScraper: true, EnableFeedly: true, EnableInoreader: true, EnableNewsBlur: true, EnableSmartMode: true},
+		}{EnableFuzzer: true, EnableScraper: false, EnableFeedly: true, EnableInoreader: true, EnableNewsBlur: true, EnableSmartMode: true},
 	}
 }
 
@@ -42,6 +42,7 @@ func log(msg string, v ...interface{}) {
 func (r *RSSFinder) FindRSS(url string) []Feed {
 	feeds := make([]Feed, 0)
 
+	feeds = append(feeds, r.scrapeURL(url)...)
 	if r.Config.EnableInoreader {
 		feeds = append(feeds, InoreaderSearch(url)...)
 	}
@@ -50,9 +51,6 @@ func (r *RSSFinder) FindRSS(url string) []Feed {
 	}
 	if r.Config.EnableNewsBlur {
 		feeds = append(feeds, NewsBlurSearch(url)...)
-	}
-	if r.Config.EnableScraper {
-		feeds = append(feeds, scrapeURL(url)...)
 	}
 	if r.Config.EnableFuzzer {
 		feeds = append(feeds, fuzzURL(url)...)

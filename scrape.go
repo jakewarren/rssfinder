@@ -29,7 +29,7 @@ var feedContentTypes = []string{
 	"text/xml",
 }
 
-func scrapeURL(u string) []Feed {
+func (r *RSSFinder) scrapeURL(u string) []Feed {
 	feeds := make([]Feed, 0)
 
 	if !strings.HasPrefix(u, "http") {
@@ -44,7 +44,7 @@ func scrapeURL(u string) []Feed {
 			regexp.MustCompile(fmt.Sprintf(`^https?://(\w+\.)*?%s/?$`, regexp.QuoteMeta(parsedURL.Host))),
 			regexp.MustCompile(fmt.Sprintf(`^%s$`, regexp.QuoteMeta(u))),
 		),
-		// set the max recursion depth to 1 page
+		// set the max recursion depth
 		colly.MaxDepth(1),
 		// set a user agent for stealth
 		colly.UserAgent(`Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36`),
@@ -54,21 +54,36 @@ func scrapeURL(u string) []Feed {
 		TLSClientConfig: &tls.Config{InsecureSkipVerify: true}, //nolint:gosec
 	})
 
-	// Scrape all links on page
-	c.OnHTML("a[href]", func(e *colly.HTMLElement) {
-		link := e.Attr("href")
+	// check alternative links
+	c.OnHTML("link[rel=\"alternate\"]", func(e *colly.HTMLElement) {
+		f := e.Attr("href")
+		contentType := e.Attr("type")
 
-		// Visit links found on page
-		f := checkLink(e.Request.AbsoluteURL(link))
-		if f != "" {
-			log("[scraper] found feed %s", f)
-			feeds = append(feeds, Feed{FeedURL: f, Sources: []string{"scraper"}})
+		for _, c := range feedContentTypes {
+			if c == contentType {
+				log("[scraper] found feed %s", f)
+				feeds = append(feeds, Feed{FeedURL: f, Sources: []string{"scraper"}})
+			}
 		}
-
-		// Visit links found on page
-		// The links are only visited if they are matched by any of the URLFilter regexps
-		_ = c.Visit(e.Request.AbsoluteURL(link))
 	})
+
+	// Scrape all links on page
+	if r.Config.EnableScraper {
+		c.OnHTML("a[href]", func(e *colly.HTMLElement) {
+			link := e.Attr("href")
+
+			// Visit links found on page
+			f := checkLink(e.Request.AbsoluteURL(link))
+			if f != "" {
+				log("[scraper] found feed %s", f)
+				feeds = append(feeds, Feed{FeedURL: f, Sources: []string{"scraper"}})
+			}
+
+			// Visit links found on page
+			// The links are only visited if they are matched by any of the URLFilter regexps and the scraper module is enabled
+			_ = c.Visit(e.Request.AbsoluteURL(link))
+		})
+	}
 
 	// Log page visits if verbose output is enabled
 	c.OnRequest(func(r *colly.Request) {
