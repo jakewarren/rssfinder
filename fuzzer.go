@@ -12,6 +12,7 @@ var suffixes = []string{
 	"/atom", "/rdf", "/index.rss", "/index.rdf", "/index.atom",
 	"?type=100",                       // Typo3 RSS URL
 	"/blog-feed.xml",                  // Wix.com RSS URL
+	"?format=rss",                     // squarespace.com format
 	"?format=feed&type=rss",           // Joomla RSS URL
 	"/feeds/posts/default",            // Blogger.com RSS URL
 	"/rss.xml",                        // Posterous.com RSS feed
