@@ -1,5 +1,4 @@
 # rssfinder
-[![CircleCI](https://circleci.com/gh/jakewarren/rssfinder.svg?style=shield)](https://circleci.com/gh/jakewarren/rssfinder)
 [![GitHub release](http://img.shields.io/github/release/jakewarren/rssfinder.svg?style=flat-square)](https://github.com/jakewarren/rssfinder/releases])
 [![MIT License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/jakewarren/rssfinder/blob/master/LICENSE)
 [![Go Report Card](https://goreportcard.com/badge/github.com/jakewarren/rssfinder)](https://goreportcard.com/report/github.com/jakewarren/rssfinder)
